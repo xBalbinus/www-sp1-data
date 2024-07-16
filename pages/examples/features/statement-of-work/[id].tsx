@@ -13,7 +13,6 @@ import SignatureBox from '@system/documents/SignatureBox';
 import { H3, H4, P, Title, Text } from '@system/typography';
 
 function ExampleSOW(props) {
-  // NOTE(jimmylee):
   // props.id
   // props.team
   // props.summary

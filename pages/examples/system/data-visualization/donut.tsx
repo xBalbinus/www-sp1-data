@@ -12,7 +12,6 @@ import TwoColumnLayoutFull from '@system/layouts/TwoColumnLayoutFull';
 import { H2, P, Title, Text, SubText } from '@system/typography';
 
 function ExampleSystemDataVisualizationDonut(props) {
-  // TODO(jimmylee)
   // Refactor these.
   const chartContainerStyles = { padding: `0 24px 48px 16px` };
   const infoStyles = { padding: '32px 24px 24px 24px', borderTop: `1px solid var(--theme-border)` };

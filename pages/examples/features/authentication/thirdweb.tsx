@@ -51,7 +51,6 @@ export async function web3Authenticate({ address, message, signature, email, pas
   return null;
 }
 
-// TODO(jimmylee)
 // When we can fix dependencies. We will delete these in the template.
 function ThirdwebSDKProvider({ activeChain, clientId }: Record<string, any>) {
   return null;

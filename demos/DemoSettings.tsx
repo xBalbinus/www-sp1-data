@@ -216,7 +216,6 @@ export default function DemoSettings(props) {
                     const response = await Queries.userDeletePost({ id: targetId, key: props.sessionKey });
                     if (!response) {
                       props.onSetModal({ name: 'ERROR', message: 'failed to delete post' });
-                      // TODO(jimmylee):
                       // Very lazy.
                       window.location.reload();
                       return;
@@ -224,7 +223,6 @@ export default function DemoSettings(props) {
 
                     if (response.error) {
                       props.onSetModal({ name: 'ERROR', message: response.error });
-                      // TODO(jimmylee):
                       // Very lazy.
                       window.location.reload();
                       return;

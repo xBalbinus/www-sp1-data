@@ -54,7 +54,6 @@ function ExampleSettings(props) {
   );
 }
 
-// NOTE(jimmylee)
 // This page is a little messy because of all the cases that will be covered.
 // In the future it might be better to scope each case to its own static route.
 export async function getServerSideProps(context) {

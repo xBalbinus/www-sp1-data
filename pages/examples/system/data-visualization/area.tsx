@@ -66,7 +66,6 @@ const EXAMPLE_DUMMY_DATA = [
 const EXAMPLE_LEGEND_DATA = [`var(--theme-graph-positive)`];
 
 function ExampleSystemDataVisualizationArea(props) {
-  // TODO(jimmylee)
   // Refactor these.
   const chartContainerStyles = { padding: `0 24px 48px 16px` };
   const infoStyles = { padding: '28px 24px 24px 24px', borderTop: `1px solid var(--theme-border)` };

@@ -47,7 +47,6 @@ const EXAMPLE_DIVERGING_STACKED_BAR_CHART = [
 const EXAMPLE_LEGEND_DATA = [`var(--theme-graph-positive)`, `var(--theme-graph-negative)`];
 
 function ExampleSystemDataVisualizationBar(props) {
-  // TODO(jimmylee)
   // Refactor these.
   const chartContainerStyles = { padding: `0 24px 48px 16px` };
   const infoStyles = { padding: '32px 24px 24px 24px', borderTop: `1px solid var(--theme-border)` };

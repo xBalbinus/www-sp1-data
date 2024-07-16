@@ -28,7 +28,6 @@ const EXAMPLE_GROUPED_BUBBLES_CHART = [
 ];
 
 function ExampleSystemDataVisualizationBubble(props) {
-  // TODO(jimmylee)
   // Refactor these.
   const chartContainerStyles = { padding: `0 24px 48px 16px` };
   const infoStyles = { padding: '32px 24px 24px 24px', borderTop: `1px solid var(--theme-border)` };
