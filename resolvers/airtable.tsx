@@ -16,14 +16,14 @@ export function formatAirtablePerformanceMetrics(records): PerformanceMetrics[] 
 
   return records?.records.map((record) => {
     return {
-      program: record?.fields?.Program || null,
-      hashfn: record?.fields?.Hashfn || null,
-      shard_size: record?.fields?.ShardSize || null,
-      cycles: record?.fields?.Cycles || null,
-      speed: record?.fields?.Speed || null,
-      execution_duration: record?.fields?.ExecutionDuration || null,
-      prove_duration: record?.fields?.ProveDuration || null,
-      verify_duration: record?.fields?.VerifyDuration || null,
+      program: record?.fields?.program || null,
+      hashfn: record?.fields?.hashfn || null,
+      shard_size: record?.fields?.shard_size || null,
+      cycles: record?.fields?.cycles || null,
+      speed: record?.fields?.speed || null,
+      execution_duration: record?.fields?.execution_duration || null,
+      prove_duration: record?.fields?.prove_duration || null,
+      verify_duration: record?.fields?.verify_duration || null,
     };
   });
 }

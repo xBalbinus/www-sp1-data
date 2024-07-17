@@ -20,7 +20,7 @@ function ExampleBase(props) {
     >
       <Navigation />
       <DashboardWithSidebarLayout sidebar={sidebarElement}>
-        <SectionDatasheet hideContent />
+        <SectionDatasheet hideContent data={props.formattedDataList} />
       </DashboardWithSidebarLayout>
       <GlobalModalManager />
     </Page>

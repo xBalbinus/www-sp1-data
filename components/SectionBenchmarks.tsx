@@ -1,4 +1,4 @@
-import styles from '@demos/DemoBentoLayout.module.scss';
+import styles from '@components/SectionBenchmarks.module.scss';
 
 import * as React from 'react';
 
@@ -12,7 +12,7 @@ import TextSwapper from '@system/animations/TextSwapper';
 
 import { H2, H3, Lead } from '@system/typography';
 
-export default function DemoBentoLayout(props) {
+export default function SectionBenchmarks(props) {
   const containerStyles = { background: `var(--theme-text)`, borderRadius: 8, color: `var(--theme-background)`, minWidth: 228, padding: `8px 24px 8px 24px` };
 
   const EXAMPLE_DUMMY_DATA = [

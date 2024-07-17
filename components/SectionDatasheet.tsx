@@ -1,4 +1,4 @@
-import styles from '@demos/DemoBentoLayout.module.scss';
+import styles from '@components/SectionDatasheet.module.scss';
 
 import * as React from 'react';
 
@@ -12,7 +12,8 @@ import TextSwapper from '@system/animations/TextSwapper';
 
 import { H2, H3, Lead } from '@system/typography';
 
-export default function DemoBentoLayout(props) {
+export default function SectionDatasheet(props) {
+  console.log(props.data);
   const containerStyles = { background: `var(--theme-text)`, borderRadius: 8, color: `var(--theme-background)`, minWidth: 228, padding: `8px 24px 8px 24px` };
 
   const EXAMPLE_DUMMY_DATA = [
@@ -176,9 +177,6 @@ export default function DemoBentoLayout(props) {
       <div className={styles.bento}>
         <div className={styles.row}>
           <Table data={TABLE_DATA} headings={['Type', 'Updated date', 'URL', 'Description']} />
-          <div className={styles.columnWide}>
-            <div className={styles.full}>II</div>
-          </div>
         </div>
         <div className={styles.row}>
           <div className={styles.columnWide}>
