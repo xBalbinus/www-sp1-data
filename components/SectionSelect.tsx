@@ -4,6 +4,8 @@ import * as React from 'react';
 
 import Content from '@system/layouts/Content';
 
+import LineChart from '@root/system/graphs/LineChart';
+
 import { H2, Lead } from '@system/typography';
 
 export default function SectionSelect(props) {
