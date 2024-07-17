@@ -5,6 +5,9 @@
 .bento {
   margin-top: 24px;
   width: 100%;
+  background-color: #ebf3f4;
+  padding: 60px;
+  border-radius: 12px;
 }
 
 .row {
@@ -51,30 +54,37 @@
 }
 
 .full {
-  border: 1px solid var(--theme-border);
+  border: 2px solid black;
   font-size: var(--type-scale-1);
-  border-radius: 4px;
+  border-radius: 12px;
+  font-weight: 200;
   height: 256px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  text-decoration: none;
+  color: black;
+  background-color: white;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease; /* Smooth transitions for hover effects */
+}
 
-  &:hover {
-    background-color: var(--theme-foreground-secondary);
-    border-color: var(--theme-border-subdued);
-  }
+.full:hover {
+  background-color: #e8fe56; /* Background color on hover */
+  color: black; /* Text color on hover */
 }
 
 .fullDisabled {
-  background-color: var(--theme-foreground-secondary);
-  border-color: var(--theme-border-subdued);
-  border: 1px solid var(--theme-border);
+  border: 2px solid lightgray;
+  background-color: #f0f0f0;
+  color: var(--theme-foreground);
   font-size: var(--type-scale-1);
-  border-radius: 4px;
+  border-radius: 12px;
+  font-weight: 200;
   height: 256px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: not-allowed;
 }

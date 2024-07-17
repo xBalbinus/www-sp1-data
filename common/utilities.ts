@@ -29,22 +29,7 @@ export function onHandleThemeChange() {
   }
 
   if (body.classList.contains('theme-dark')) {
-    body.classList.replace('theme-dark', 'theme-daybreak');
-    return;
-  }
-
-  if (body.classList.contains('theme-daybreak')) {
-    body.classList.replace('theme-daybreak', 'theme-blue');
-    return;
-  }
-
-  if (body.classList.contains('theme-blue')) {
-    body.classList.replace('theme-blue', 'theme-neon-green');
-    return;
-  }
-
-  if (body.classList.contains('theme-neon-green')) {
-    body.classList.replace('theme-neon-green', 'theme-light');
+    body.classList.replace('theme-dark', 'theme-light');
     return;
   }
 }

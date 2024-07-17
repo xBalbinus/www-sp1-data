@@ -5,6 +5,7 @@ import { resolveAirtablePerformanceMetricsList } from '@root/resolvers/airtable'
 import DashboardWithSidebarLayout from '@system/layouts/DashboardWithSidebarLayout';
 import DemoSidebarLayout from '@demos/DemoSidebarLayout';
 import GlobalModalManager from '@system/modals/GlobalModalManager';
+import GutterContainer from '@components/GutterContainer';
 import Navigation from '@system/Navigation';
 import Page from '@components/Page';
 import SectionDatasheet from '@components/SectionDatasheet';
@@ -18,10 +19,12 @@ function ExampleBase(props) {
       description="A lightweight website template to test our design system. You can view this template on GitHub and see how we write websites."
       url="https://wireframes.internet.dev/examples"
     >
-      <Navigation />
-      <DashboardWithSidebarLayout sidebar={sidebarElement}>
-        <SectionDatasheet hideContent data={props.formattedDataList} />
-      </DashboardWithSidebarLayout>
+      <GutterContainer>
+        <Navigation />
+        <DashboardWithSidebarLayout sidebar={sidebarElement}>
+          <SectionDatasheet hideContent data={props.formattedDataList} />
+        </DashboardWithSidebarLayout>
+      </GutterContainer>
       <GlobalModalManager />
     </Page>
   );

@@ -101,15 +101,15 @@ section {
 }
 
 body.theme-light {
-  --theme-background: var(--color-white);
-  --theme-background-overlay: var(--color-white-4);
+  --theme-background: #ffffff;
+  --theme-background-overlay: var(--color-turquoise);
   --theme-background-box-top: rgba(245, 245, 245, 1);
   --theme-background-box-front: rgba(215, 215, 215, 1);
   --theme-background-box-side: rgba(235, 235, 235, 1);
   --theme-foreground: var(--color-black-100-1);
   --theme-foreground-secondary: var(--color-black-100-2);
   --theme-text: var(--color-black-100);
-  --theme-border: var(--color-gray-20);
+  --theme-border: var(--color-black-100-1);
   --theme-border-box: var(--color-gray-20);
   --theme-border-subdued: var(--color-gray-40-2);
   --theme-button: var(--color-black-100);
@@ -188,7 +188,7 @@ body.theme-daybreak {
 
 body.theme-dark {
   --theme-background: var(--color-black-100);
-  --theme-background-overlay: var(--color-black-100-4);
+  --theme-background-overlay: var(--color-white-4);
   --theme-background-box-top: var(--color-gray-70);
   --theme-background-box-front: var(--color-gray-100);
   --theme-background-box-side: var(--color-gray-90);
@@ -393,6 +393,7 @@ body {
   --color-neon-green-30: rgba(178, 255, 148, 1);
   --color-neon-green-20: rgba(213, 255, 191, 1);
   --color-neon-green-10: rgba(242, 255, 233, 1);
+  --color-turquoise: rgba(101, 131, 143, 1);
 
   --color-blue-100: rgba(0, 17, 65, 1);
   --color-blue-90: rgba(0, 29, 108, 1);

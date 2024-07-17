@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import Content from '@system/layouts/Content';
 import GlobalModalManager from '@system/modals/GlobalModalManager';
+import GutterContainer from '@root/components/GutterContainer';
 import Navigation from '@system/Navigation';
 import Page from '@components/Page';
 import SectionFullHeight from '@system/sections/SectionFullHeight';
@@ -15,13 +16,15 @@ function ExampleBase(props) {
       description="A lightweight website template to test our design system. You can view this template on GitHub and see how we write websites."
       url="https://wireframes.internet.dev/examples"
     >
-      <Navigation />
-      <SectionFullHeight>
-        <Content>
-          <SectionSelect hideContent />
-        </Content>
-      </SectionFullHeight>
-      <GlobalModalManager />
+      <GutterContainer>
+        <Navigation />
+        <SectionFullHeight>
+          <Content>
+            <SectionSelect hideContent />
+          </Content>
+        </SectionFullHeight>
+        <GlobalModalManager />
+      </GutterContainer>
     </Page>
   );
 }

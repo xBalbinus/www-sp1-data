@@ -4,8 +4,6 @@ import {
   formatPercentage,
   styleWrappedText,
 } from './graphs-common';
-import { GraphValue } from '@root/common/graph';
-import { getCommit } from '@root/common/utilities';
 
 const RANGE_MARGIN_TOP_EM = 4;
 const RANGE_MARGIN_BOTTOM_EM = 1.5;
@@ -15,9 +13,7 @@ const POINT_RADIUS_EM = 4;
 
 interface Data {
   label: string;
-  group?: string;
-  value: GraphValue;
-  deemphasized?: boolean;
+  value: number;
 }
 
 export interface LineGraphProps {
@@ -67,20 +63,13 @@ export default function LineGraph(props: LineGraphProps) {
 
       const sel = d3.select(this);
 
-      const meanColor = data[0].deemphasized
-        ? 'var(--color-google-yellow-light)'
-        : 'var(--theme-graph-line-mean)';
-      const ciColor = data[0].deemphasized
-        ? 'none'
-        : 'var(--theme-graph-line-ci)';
-      const areaColor = data[0].deemphasized
-        ? 'none'
-        : 'var(--theme-graph-line-area)';
+      const meanColor = 'var(--theme-text)';
+      const areaColor = 'var(--theme-foreground)';
 
       // Area under mean line
       const meanArea = d3.area<Data>(
         (d) => xScale(d.label),
-        (d) => yScale(d.value.mean),
+        (d) => yScale(d.value),
         (d) => yScale(0)
       );
       sel
@@ -89,22 +78,10 @@ export default function LineGraph(props: LineGraphProps) {
         .attr('stroke', 'none')
         .attr('fill', areaColor);
 
-      // CI area
-      const ciArea = d3.area<Data>(
-        (d) => xScale(d.label),
-        (d) => yScale(d.value.lowerCI),
-        (d) => yScale(d.value.upperCI)
-      );
-      sel
-        .select('.ci-area')
-        .attr('d', ciArea(data))
-        .attr('stroke', 'none')
-        .attr('fill', ciColor);
-
       // Mean line
       const meanLine = d3.line<Data>(
         (d) => xScale(d.label),
-        (d) => yScale(d.value.mean)
+        (d) => yScale(d.value)
       );
       sel
         .select('.mean-line')
@@ -121,7 +98,7 @@ export default function LineGraph(props: LineGraphProps) {
         .join('circle')
         .attr('r', POINT_RADIUS_EM)
         .attr('cx', (d) => xScale(d.label))
-        .attr('cy', (d) => yScale(d.value.mean))
+        .attr('cy', (d) => yScale(d.value))
         .attr('fill', meanColor);
 
       // Value labels
@@ -176,10 +153,8 @@ export default function LineGraph(props: LineGraphProps) {
       .join((enter) => {
         const g = enter.append('g');
         g.append('path').classed('mean-area', true);
-        g.append('path').classed('ci-area', true);
         g.append('path').classed('mean-line', true);
         g.append('g').classed('value-markers', true);
-        g.append('g').classed('ci-markers', true);
         g.append('g').classed('value-labels', true);
         return g;
       })
@@ -199,8 +174,7 @@ export default function LineGraph(props: LineGraphProps) {
       .attr('font-style', 'italic')
       .attr('fill', 'var(--theme-graph-sub-label)')
       .text((d) => {
-        const commit = '1234567890abcdef';
-        return commit ? commit.slice(0, 16) : d.slice(0, 16);
+        return d.slice(0, 16);
       });
   }
 

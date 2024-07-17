@@ -21,52 +21,24 @@ export default function SectionSelect(props) {
       <div className={styles.bento}>
         <div className={styles.row}>
           <div className={styles.columnWide}>
+            <a href="/benchmarks" className={styles.full}>
+              Benchmarks
+            </a>
+          </div>
+          <div className={styles.columnWide}>
+            <a href="/datasheets" className={styles.full}>
+              Datasheet
+            </a>
+          </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.columnWide}>
             <div className={styles.fullDisabled}>Crates.io Validation</div>
           </div>
           <div className={styles.columnWide}>
-            <div className={styles.full} onClick={() => window.location.href = '/benchmarks'}>Application Benchmarks</div>
+            <div className={styles.fullDisabled}>Application Benchmarks</div>
           </div>
         </div>
-        {/* 
-            <div className={styles.row}>
-            <div className={styles.column}>
-                <div className={styles.full}>III</div>
-            </div>
-            <div className={styles.column}>
-                <div className={styles.full}>IV</div>
-            </div>
-            <div className={styles.column}>
-                <div className={styles.full}>V</div>
-            </div>
-            <div className={styles.column}>
-                <div className={styles.full}>VI</div>
-            </div>
-            </div>
-        */}
-        <div className={styles.row}>
-          <div className={styles.columnWide}>
-            <div className={styles.fullDisabled}>Benchmarks</div>
-          </div>
-          <div className={styles.columnWide}>
-            <div className={styles.full} onClick={() => window.location.href = '/datasheet'}>Datasheet</div>
-          </div>
-        </div>
-        {/* 
-        <div className={styles.row}>
-          <div className={styles.column}>
-            <div className={styles.full}>VIIII</div>
-          </div>
-          <div className={styles.column}>
-            <div className={styles.full}>IX</div>
-          </div>
-          <div className={styles.column}>
-            <div className={styles.full}>X</div>
-          </div>
-          <div className={styles.column}>
-            <div className={styles.full}>XI</div>
-          </div>
-        </div>
-        */}
       </div>
     </div>
   );

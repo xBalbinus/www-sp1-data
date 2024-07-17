@@ -5,7 +5,7 @@ import styles from '@system/Navigation.module.scss';
 import * as React from 'react';
 import * as Utilities from '@common/utilities';
 
-import { Succinct } from '@components/svgs/Succinct';
+import { Succinct } from '@root/components/svgs/SuccinctBlack';
 import { useModal } from '@system/providers/ModalContextProvider';
 
 export default function Navigation() {
@@ -30,14 +30,15 @@ export default function Navigation() {
         </a>
       </section>
       <section className={styles.right}>
-        <span
+        <a
           className={styles.item}
           id="site-navigation-button"
-          onClick={() => showModal({ name: 'NAVIGATION_V2', parentId: 'site-navigation-button' })}
-          data-detector-ignore-navigation
+          href="https://github.com/xBalbinus/www-sp1-data"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Github
-        </span>
+        </a>
       </section>
     </nav>
   );
