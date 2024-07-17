@@ -1,21 +1,29 @@
-import * as React from 'react';
-import * as Utilities from '@common/utilities';
+import styles from '@demos/DemoBentoLayout.module.scss';
 
-import GlobalModalManager from '@system/modals/GlobalModalManager';
-import GridLayout from '@system/layouts/GridLayout';
-import Navigation from '@system/Navigation';
-import Page from '@components/Page';
+import * as React from 'react';
+
+import Content from '@system/layouts/Content';
+
+import LineChart from '@system/graphs/LineChart';
 import Table from '@system/Table';
+
 import Tag from '@system/documents/Tag';
 import TextSwapper from '@system/animations/TextSwapper';
-import TwoColumnLayoutFull from '@system/layouts/TwoColumnLayoutFull';
 
-import { H3 } from '@system/typography';
+import { H2, H3, Lead } from '@system/typography';
 
-const TABLE_HEADINGS = [``, `Component`, `Animation`, `Preview`];
-
-function ExampleAnimationsTypeSwapping(props) {
+export default function DemoBentoLayout(props) {
   const containerStyles = { background: `var(--theme-text)`, borderRadius: 8, color: `var(--theme-background)`, minWidth: 228, padding: `8px 24px 8px 24px` };
+
+  const EXAMPLE_DUMMY_DATA = [
+    { value: 70, date: '2023-4-1', lower_ci: 63, upper_ci: 77 },
+    { value: 100, date: '2023-5-1', lower_ci: 90, upper_ci: 110 },
+    { value: 135, date: '2023-6-1', lower_ci: 121.5, upper_ci: 148.5 },
+    { value: 145, date: '2023-7-1', lower_ci: 130.5, upper_ci: 159.5 },
+    { value: 135, date: '2023-8-1', lower_ci: 121.5, upper_ci: 148.5 },
+    { value: 100, date: '2023-9-1', lower_ci: 90, upper_ci: 110 },
+    { value: 70, date: '2023-10-1', lower_ci: 63, upper_ci: 77 },
+  ];
 
   const TABLE_DATA = [
     {
@@ -157,24 +165,44 @@ function ExampleAnimationsTypeSwapping(props) {
   ];
 
   return (
-    <Page
-      title="wireframes.internet.dev ➝ animations ➝ text swapping"
-      description="A lightweight website template to test our design system. You can view this template on GitHub and see how we write websites."
-      url="https://wireframes.internet.dev/examples/animations/text-swapping"
-    >
-      <Navigation />
-      <TwoColumnLayoutFull sidebar={<GridLayout />}>
-        <Table data={TABLE_DATA} headings={TABLE_HEADINGS} style={{ marginTop: 64 }} />
-      </TwoColumnLayoutFull>
-      <GlobalModalManager />
-    </Page>
+    <div className={styles.root}>
+      {props.hideContent ? null : (
+        <Content>
+          <H2>DemoBentoLayout</H2>
+          <Lead style={{ marginTop: `1rem` }}>2 or 4 row sections that can be resized and viewed in any viewport.</Lead>
+        </Content>
+      )}
+
+      <div className={styles.bento}>
+        <div className={styles.row}>
+          <Table data={TABLE_DATA} headings={['Type', 'Updated date', 'URL', 'Description']} />
+          <div className={styles.columnWide}>
+            <div className={styles.full}>II</div>
+          </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.columnWide}>
+            <div className={styles.full}>VII</div>
+          </div>
+          <div className={styles.columnWide}>
+            <div className={styles.full}>VIII</div>
+          </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.column}>
+            <div className={styles.full}>VIIII</div>
+          </div>
+          <div className={styles.column}>
+            <div className={styles.full}>IX</div>
+          </div>
+          <div className={styles.column}>
+            <div className={styles.full}>X</div>
+          </div>
+          <div className={styles.column}>
+            <div className={styles.full}>XI</div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
-
-export async function getServerSideProps(context) {
-  return {
-    props: {},
-  };
-}
-
-export default ExampleAnimationsTypeSwapping;

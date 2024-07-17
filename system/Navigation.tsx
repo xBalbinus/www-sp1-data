@@ -5,6 +5,7 @@ import styles from '@system/Navigation.module.scss';
 import * as React from 'react';
 import * as Utilities from '@common/utilities';
 
+import { Succinct } from '@components/svgs/Succinct';
 import { useModal } from '@system/providers/ModalContextProvider';
 
 export default function Navigation() {
@@ -14,7 +15,7 @@ export default function Navigation() {
     <nav className={styles.root}>
       <section className={styles.left}>
         <a href="/" className={styles.item}>
-          Succinct
+          <Succinct />
         </a>
       </section>
       <section className={styles.stretch}>

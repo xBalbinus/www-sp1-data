@@ -7,7 +7,7 @@ import DemoSidebarLayout from '@demos/DemoSidebarLayout';
 import GlobalModalManager from '@system/modals/GlobalModalManager';
 import Navigation from '@system/Navigation';
 import Page from '@components/Page';
-import SectionDatasheet from '@components/SectionDatasheet';
+import SectionBenchmarks from '@components/SectionBenchmarks';
 
 function ExampleBase(props) {
   const sidebarElement = <DemoSidebarLayout />;
@@ -20,7 +20,7 @@ function ExampleBase(props) {
     >
       <Navigation />
       <DashboardWithSidebarLayout sidebar={sidebarElement}>
-        <SectionDatasheet hideContent />
+        <SectionBenchmarks hideContent />
       </DashboardWithSidebarLayout>
       <GlobalModalManager />
     </Page>
