@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import AnimatedBackground from '@components/AnimationBackground';
 import Content from '@system/layouts/Content';
 import GlobalModalManager from '@system/modals/GlobalModalManager';
 import GutterContainer from '@root/components/GutterContainer';
@@ -17,6 +18,7 @@ function ExampleBase(props) {
       url="https://wireframes.internet.dev/examples"
     >
       <GutterContainer>
+        <AnimatedBackground />
         <Navigation />
         <SectionFullHeight>
           <Content>

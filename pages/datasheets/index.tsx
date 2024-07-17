@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { resolveAirtablePerformanceMetricsList } from '@root/resolvers/airtable';
 
+import AnimatedBackground from '@components/AnimationBackground';
 import DashboardWithSidebarLayout from '@system/layouts/DashboardWithSidebarLayout';
 import DemoSidebarLayout from '@demos/DemoSidebarLayout';
 import GlobalModalManager from '@system/modals/GlobalModalManager';

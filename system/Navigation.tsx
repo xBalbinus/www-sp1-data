@@ -5,7 +5,7 @@ import styles from '@system/Navigation.module.scss';
 import * as React from 'react';
 import * as Utilities from '@common/utilities';
 
-import { Succinct } from '@root/components/svgs/SuccinctBlack';
+import { SuccinctWhite } from '@root/components/svgs/SuccinctWhite';
 import { useModal } from '@system/providers/ModalContextProvider';
 
 export default function Navigation() {
@@ -15,7 +15,7 @@ export default function Navigation() {
     <nav className={styles.root}>
       <section className={styles.left}>
         <a href="/" className={styles.item}>
-          <Succinct />
+          <SuccinctWhite />
         </a>
       </section>
       <section className={styles.stretch}>
@@ -30,13 +30,7 @@ export default function Navigation() {
         </a>
       </section>
       <section className={styles.right}>
-        <a
-          className={styles.item}
-          id="site-navigation-button"
-          href="https://github.com/xBalbinus/www-sp1-data"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a className={styles.item} id="site-navigation-button" href="https://github.com/xBalbinus/www-sp1-data" target="_blank" rel="noopener noreferrer">
           Github
         </a>
       </section>

@@ -64,15 +64,15 @@
   justify-content: center;
   text-decoration: none;
   color: black;
-  background-color: white;
+  background-color: #e8fe56;
   transition:
     background-color 0.3s ease,
-    color 0.3s ease; /* Smooth transitions for hover effects */
+    color 0.3s ease;
 }
 
 .full:hover {
-  background-color: #e8fe56; /* Background color on hover */
-  color: black; /* Text color on hover */
+  background-color: rgb(1, 38, 38);
+  color: #ffffff;
 }
 
 .fullDisabled {

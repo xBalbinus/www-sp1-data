@@ -30,7 +30,7 @@ export function styleVerticalCiMarkers<Data>(
   const getYMax = params.getYMax;
 
   // (xBalbinus) A lighter shade of grey that meets accessibility standards
-  sel.attr('stroke', 'var(--theme-graph-sub-label)');
+  sel.attr('stroke', 'var(--theme-text)');
 
   // Clear children before render
   sel.selectAll('*').remove();

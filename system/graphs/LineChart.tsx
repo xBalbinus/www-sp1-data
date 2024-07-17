@@ -1,7 +1,6 @@
 import * as d3 from 'd3';
 import { AutoSizedGraph } from './AutoSizedGraph';
 import {
-  formatPercentage,
   styleWrappedText,
 } from './graphs-common';
 
@@ -29,7 +28,7 @@ export default function LineGraph(props: LineGraphProps) {
     height: number,
     fontSize: number,
   ) {
-    const svg = d3.select(element).attr('fill', 'var(--theme-graph-dark-text)');
+    const svg = d3.select(element).attr('fill', 'var(--color-white)');
 
     const labels = props.data.map((data) => data.label);
 
@@ -100,20 +99,6 @@ export default function LineGraph(props: LineGraphProps) {
         .attr('cx', (d) => xScale(d.label))
         .attr('cy', (d) => yScale(d.value))
         .attr('fill', meanColor);
-
-      // Value labels
-      sel
-        .select('.value-labels')
-        .selectChildren()
-        .data(data)
-        .join('text')
-        .attr('x', (d) => xScale(d.label))
-        .attr(
-          'y',
-          (d) => yScale(d.value.mean) - VALUE_LABEL_MARGIN_EM * fontSize
-        )
-        .attr('text-anchor', 'middle')
-        .text((d) => formatPercentage(d.value.mean));
     }
 
     // Ticks
@@ -143,7 +128,8 @@ export default function LineGraph(props: LineGraphProps) {
       )
       .attr('y', (d) => yScale(d))
       .attr('text-anchor', 'end')
-      .attr('dominant-baseline', 'middle');
+      .attr('dominant-baseline', 'middle')
+      .attr('fill', 'var(--color-white)');
 
     const groups = d3.group(props.data, (d) => d.group);
     svg
@@ -172,7 +158,7 @@ export default function LineGraph(props: LineGraphProps) {
       .attr('dominant-baseline', 'normal')
       .attr('text-anchor', 'middle')
       .attr('font-style', 'italic')
-      .attr('fill', 'var(--theme-graph-sub-label)')
+      .attr('fill', 'var(--color-white)')
       .text((d) => {
         return d.slice(0, 16);
       });

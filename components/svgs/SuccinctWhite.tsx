@@ -1,4 +1,4 @@
-export function Succinct(props) {
+export function SuccinctWhite(props) {
   return (
     <svg
       {...props}

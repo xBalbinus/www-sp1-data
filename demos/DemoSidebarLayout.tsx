@@ -49,14 +49,16 @@ export default function DemoSidebarLayout(props) {
     <div className={styles.root}>
       <div className={styles.top}>
         <SubTitle style={{ opacity: 0.6, padding: '8px 24px 8px 24px' }}>Benchmarks</SubTitle>
-        <Item active={activeItem === 0} onClick={() => setActiveItem(0)}>Metal on Apple M2 Pro</Item>
+        <Item active={activeItem === 0} onClick={() => setActiveItem(0)}>
+          Metal on Apple M2 Pro
+        </Item>
+        {/* 
         <SubItem active={activeItem === 1} onClick={() => setActiveItem(1)}>
           <SubText>Execute</SubText>
         </SubItem>
         <SubItem active={activeItem === 2} onClick={() => setActiveItem(2)}>
           <SubText>Prove</SubText>
         </SubItem>
-        {/* 
         <Item>Topic II</Item>
         <Item>Topic III</Item>
         <SubItem>
