@@ -1,175 +1,218 @@
-import * as React from 'react';
 import * as d3 from 'd3';
+import { AutoSizedGraph } from './AutoSizedGraph';
+import {
+  formatPercentage,
+  styleWrappedText,
+} from './graphs-common';
+import { GraphValue } from '@root/common/graph';
+import { getCommit } from '@root/common/utilities';
 
-const LineChart = (props) => {
-  const d3Container = React.useRef<HTMLDivElement | null | any>(null);
-  const [containerWidth, setContainerWidth] = React.useState(0);
+const RANGE_MARGIN_TOP_EM = 4;
+const RANGE_MARGIN_BOTTOM_EM = 1.5;
+const VALUE_LABEL_MARGIN_EM = 0.5;
+const RANGE_MARGIN_LEFT_EM = 4;
+const POINT_RADIUS_EM = 4;
 
-  const drawChart = (width) => {
-    if (!d3Container) {
-      return;
-    }
+interface Data {
+  label: string;
+  group?: string;
+  value: GraphValue;
+  deemphasized?: boolean;
+}
 
-    if (props.data && d3Container && d3Container.current && width > 0) {
-      const svg = d3.select(d3Container.current);
-      svg.selectAll('*').remove();
+export interface LineGraphProps {
+  data: Data[];
+  title: string;
+  fontSize?: number;
+}
 
-      const margin = { top: 16, right: 0, bottom: 32, left: 32 };
-      const height = +svg.attr('height') - margin.top - margin.bottom;
-      const drawWidth = width - margin.left - margin.right;
+export default function LineGraph(props: LineGraphProps) {
+  function drawGraph(
+    element: SVGSVGElement,
+    width: number,
+    height: number,
+    fontSize: number,
+  ) {
+    const svg = d3.select(element).attr('fill', 'var(--theme-graph-dark-text)');
 
-      const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+    const labels = props.data.map((data) => data.label);
 
-      const defs = svg.append('defs');
-      const colors = {
-        positive: ['var(--theme-graph-positive-subdued)', 'var(--theme-graph-positive)'],
-        negative: ['var(--theme-graph-negative-subdued)', 'var(--theme-graph-negative)'],
-        reversePositive: ['var(--theme-graph-positive)', 'var(--theme-graph-positive-subdued)'],
-        reverseNegative: ['var(--theme-graph-negative)', 'var(--theme-graph-negative-subdued)'],
-      };
-
-      Object.entries(colors).forEach(([key, colorRange]) => {
-        const gradient = defs.append('linearGradient').attr('id', `gradient-${key}`).attr('x1', '0%').attr('x2', '0%').attr('y1', '0%').attr('y2', '100%');
-
-        gradient.append('stop').attr('offset', '0%').attr('stop-color', colorRange[0]);
-        gradient.append('stop').attr('offset', '100%').attr('stop-color', colorRange[1]);
-      });
-
-      const xScale = d3
-        .scaleTime()
-        .domain(d3.extent(props.data, (d) => new Date(d.date)))
-        .range([0, drawWidth]);
-
-      const yScale = d3
-        .scaleLinear()
-        .domain([0, d3.max(props.data, (d) => d.value)])
-        .range([height, 0]);
-
-      const yAxis = g.append('g').call(d3.axisLeft(yScale).ticks(6).tickSize(-drawWidth).tickPadding(8));
-      yAxis.attr('shape-rendering', 'crispEdges').selectAll('.tick text').style('font-size', 'var(--type-scale-fixed-small)').style('fill', 'var(--theme-border)');
-      yAxis.selectAll('.domain, .tick line').attr('stroke', 'var(--theme-border)');
-      yAxis.selectAll('.domain').remove();
-
-      const xAxis = g.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(xScale).ticks(6));
-      xAxis.selectAll('.tick text').style('fill', 'var(--theme-border)').style('font-size', 'var(--type-scale-fixed-small)');
-      xAxis.selectAll('.tick line, .domain').style('stroke', 'var(--theme-border)');
-      xAxis.selectAll('.domain').remove();
-
-      const area = d3
-        .area()
-        .x((d) => xScale(new Date(d.date)))
-        .y0(height)
-        .y1((d) => yScale(d.value));
-
-      if (props.showAreaFill) {
-        const area = d3
-          .area()
-          .x((d) => xScale(new Date(d.date)))
-          .y0(height)
-          .y1((d) => yScale(d.value));
-
-        g.append('path').datum(props.data).attr('fill', 'url(#gradient-reversePositive)').attr('d', area);
-      }
-
-      g.append('path')
-        .datum(props.data)
-        .attr('fill', 'none')
-        .attr('stroke', 'var(--theme-graph-positive)')
-        .attr('stroke-width', 1)
-        .attr(
-          'd',
-          d3
-            .line()
-            .x((d) => xScale(new Date(d.date)))
-            .y((d) => yScale(d.value))
-        );
-
-      // Optional error bars
-      if (props.showErrorBars) {
-        drawErrorBars(svg, props.data, xScale, yScale, {
-          color: 'var(--theme-text)',
-          strokeWidth: 1,
-          capWidth: 8,
-          showConfidenceIntervalFill: props.showConfidenceIntervalFill,
-        });
-      }
-    }
-  };
-
-  function drawErrorBars(svg, data, xScale, yScale, { color = 'var(--theme-text)', strokeWidth = 1, capWidth = 5, showConfidenceIntervalFill = false } = {}) {
-    const g = svg.select('g');
-
-    if (showConfidenceIntervalFill) {
-      const areaGenerator = d3
-        .area()
-        .x((d) => xScale(new Date(d.date)))
-        .y0((d) => yScale(d.upper_ci))
-        .y1((d) => yScale(d.lower_ci))
-        .curve(d3.curveMonotoneX);
-
-      g.append('path').datum(data).attr('fill', 'var(--theme-border-subdued)').attr('d', areaGenerator);
-    }
-
-    data.forEach((d) => {
-      const date = new Date(d.date);
-      const x = xScale(date);
-      const yLower = yScale(d.lower_ci);
-      const yUpper = yScale(d.upper_ci);
-      const yMidpoint = (yLower + yUpper) / 2;
-
-      g.append('circle').attr('cx', x).attr('cy', yMidpoint).attr('r', 3).attr('fill', color);
-
-      g.append('text')
-        .attr('x', x + 5)
-        .attr('y', yMidpoint)
-        .attr('dy', '.35em')
-        .text(`${((d.upper_ci + d.lower_ci) / 2).toFixed(0)}`)
-        .style('font-size', 'var(--type-scale-fixed-tiny)')
-        .style('fill', color);
-
-      g.append('line').attr('x1', x).attr('x2', x).attr('y1', yLower).attr('y2', yUpper).attr('stroke', color).attr('stroke-width', strokeWidth);
-
-      g.append('line')
-        .attr('x1', x - capWidth / 2)
-        .attr('x2', x + capWidth / 2)
-        .attr('y1', yLower)
-        .attr('y2', yLower)
-        .attr('stroke', color)
-        .attr('stroke-width', strokeWidth);
-
-      g.append('line')
-        .attr('x1', x - capWidth / 2)
-        .attr('x2', x + capWidth / 2)
-        .attr('y1', yUpper)
-        .attr('y2', yUpper)
-        .attr('stroke', color)
-        .attr('stroke-width', strokeWidth);
+    const titleSel = svg.select<SVGGElement>('.title');
+    styleWrappedText(titleSel, {
+      dominantBaseline: 'hanging',
+      fontSize,
+      maxWidth: width / 1.5,
+      text: props.title,
+      textAlign: 'middle',
+      x: width / 2,
+      y: 0,
     });
+    titleSel.attr('font-style', 'normal');
+
+    const rangeLeft = RANGE_MARGIN_LEFT_EM * fontSize;
+    const rangeRight = width;
+    const rangeTop = RANGE_MARGIN_TOP_EM * fontSize;
+    const rangeBottom = height - RANGE_MARGIN_BOTTOM_EM * fontSize;
+
+    const yScale = d3.scaleLinear(
+      [0, d3.max(props.data, (d) => d.value)],
+      [rangeBottom, rangeTop]
+    );
+    const xScale = d3.scalePoint(labels, [rangeLeft, rangeRight]).padding(1);
+
+    const ticks = yScale.ticks(5);
+
+    function styleLine(data: Data[]) {
+      if (!data?.length) return;
+
+      const sel = d3.select(this);
+
+      const meanColor = data[0].deemphasized
+        ? 'var(--color-google-yellow-light)'
+        : 'var(--theme-graph-line-mean)';
+      const ciColor = data[0].deemphasized
+        ? 'none'
+        : 'var(--theme-graph-line-ci)';
+      const areaColor = data[0].deemphasized
+        ? 'none'
+        : 'var(--theme-graph-line-area)';
+
+      // Area under mean line
+      const meanArea = d3.area<Data>(
+        (d) => xScale(d.label),
+        (d) => yScale(d.value.mean),
+        (d) => yScale(0)
+      );
+      sel
+        .select('.mean-area')
+        .attr('d', meanArea(data))
+        .attr('stroke', 'none')
+        .attr('fill', areaColor);
+
+      // CI area
+      const ciArea = d3.area<Data>(
+        (d) => xScale(d.label),
+        (d) => yScale(d.value.lowerCI),
+        (d) => yScale(d.value.upperCI)
+      );
+      sel
+        .select('.ci-area')
+        .attr('d', ciArea(data))
+        .attr('stroke', 'none')
+        .attr('fill', ciColor);
+
+      // Mean line
+      const meanLine = d3.line<Data>(
+        (d) => xScale(d.label),
+        (d) => yScale(d.value.mean)
+      );
+      sel
+        .select('.mean-line')
+        .attr('d', meanLine(data))
+        .attr('stroke', meanColor)
+        .attr('fill', 'none')
+        .attr('stroke-width', 2);
+
+      // Value point markers
+      sel
+        .select('.value-markers')
+        .selectChildren()
+        .data(data)
+        .join('circle')
+        .attr('r', POINT_RADIUS_EM)
+        .attr('cx', (d) => xScale(d.label))
+        .attr('cy', (d) => yScale(d.value.mean))
+        .attr('fill', meanColor);
+
+      // Value labels
+      sel
+        .select('.value-labels')
+        .selectChildren()
+        .data(data)
+        .join('text')
+        .attr('x', (d) => xScale(d.label))
+        .attr(
+          'y',
+          (d) => yScale(d.value.mean) - VALUE_LABEL_MARGIN_EM * fontSize
+        )
+        .attr('text-anchor', 'middle')
+        .text((d) => formatPercentage(d.value.mean));
+    }
+
+    // Ticks
+    svg
+      .select('.ticks')
+      .selectChildren()
+      .data(ticks)
+      .join('line')
+      .attr('x1', rangeLeft)
+      .attr('x2', rangeRight)
+      .attr('y1', (d) => yScale(d))
+      .attr('y2', (d) => yScale(d))
+      .attr('stroke', 'var(--theme-graph-tick)')
+      .attr('stroke-dasharray', '2,2')
+      .attr('opacity', '0.5');
+
+    // Tick value labels
+    svg
+      .select('.tick-values')
+      .selectChildren()
+      .data(ticks)
+      .join('text')
+      .text((d) => d)
+      .attr(
+        'x',
+        RANGE_MARGIN_LEFT_EM * fontSize - VALUE_LABEL_MARGIN_EM * fontSize
+      )
+      .attr('y', (d) => yScale(d))
+      .attr('text-anchor', 'end')
+      .attr('dominant-baseline', 'middle');
+
+    const groups = d3.group(props.data, (d) => d.group);
+    svg
+      .select('.lines')
+      .selectChildren()
+      .data(groups.values())
+      .join((enter) => {
+        const g = enter.append('g');
+        g.append('path').classed('mean-area', true);
+        g.append('path').classed('ci-area', true);
+        g.append('path').classed('mean-line', true);
+        g.append('g').classed('value-markers', true);
+        g.append('g').classed('ci-markers', true);
+        g.append('g').classed('value-labels', true);
+        return g;
+      })
+      .each(styleLine);
+
+    // Bottom labels
+    svg
+      .select('.labels')
+      .selectAll('.label')
+      .data(new Set(labels))
+      .join('text')
+      .classed('label', true)
+      .attr('x', (d) => xScale(d) + xScale.bandwidth() * 0.5)
+      .attr('y', height)
+      .attr('dominant-baseline', 'normal')
+      .attr('text-anchor', 'middle')
+      .attr('font-style', 'italic')
+      .attr('fill', 'var(--theme-graph-sub-label)')
+      .text((d) => {
+        const commit = '1234567890abcdef';
+        return commit ? commit.slice(0, 16) : d.slice(0, 16);
+      });
   }
 
-  React.useEffect(() => {
-    if (!d3Container || !d3Container.current) {
-      return;
-    }
-
-    setContainerWidth(d3Container.current.clientWidth);
-    const handleResize = () => {
-      if (!d3Container || !d3Container.current) {
-        return;
-      }
-      setContainerWidth(d3Container.current.clientWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, [props.data]);
-
-  React.useEffect(() => {
-    drawChart(containerWidth);
-  }, [containerWidth, props.data, props.showErrorBars]);
-
-  return <svg width="100%" height="188" ref={d3Container} style={props.style} />;
-};
-
-export default LineChart;
+  return (
+    <AutoSizedGraph drawGraph={drawGraph} fontSize={props.fontSize} drawGraphDeps={[
+      props.fontSize
+    ]}>
+      <g className="title">{props.title}</g>
+      <g className="ticks"></g>
+      <g className="tick-values"></g>
+      <g className="lines"></g>
+      <g className="labels"></g>
+    </AutoSizedGraph>
+  );
+}

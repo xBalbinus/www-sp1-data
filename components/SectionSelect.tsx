@@ -21,10 +21,10 @@ export default function SectionSelect(props) {
       <div className={styles.bento}>
         <div className={styles.row}>
           <div className={styles.columnWide}>
-            <div className={styles.full}>Crates.io Validation</div>
+            <div className={styles.fullDisabled}>Crates.io Validation</div>
           </div>
           <div className={styles.columnWide}>
-            <div className={styles.full}>Application Benchmarks</div>
+            <div className={styles.full} onClick={() => window.location.href = '/benchmarks'}>Application Benchmarks</div>
           </div>
         </div>
         {/* 
@@ -45,10 +45,10 @@ export default function SectionSelect(props) {
         */}
         <div className={styles.row}>
           <div className={styles.columnWide}>
-            <div className={styles.full}>Benchmarks</div>
+            <div className={styles.fullDisabled}>Benchmarks</div>
           </div>
           <div className={styles.columnWide}>
-            <div className={styles.full}>Datasheet</div>
+            <div className={styles.full} onClick={() => window.location.href = '/datasheet'}>Datasheet</div>
           </div>
         </div>
         {/* 

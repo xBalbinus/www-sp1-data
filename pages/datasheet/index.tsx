@@ -14,7 +14,7 @@ function ExampleBase(props) {
 
   return (
     <Page
-      title="wireframes.internet.dev ➝ example"
+      title="Datasheet | Succinct"
       description="A lightweight website template to test our design system. You can view this template on GitHub and see how we write websites."
       url="https://wireframes.internet.dev/examples"
     >
