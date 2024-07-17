@@ -14,8 +14,10 @@ $shadow: ();
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   box-shadow: $shadow;
+  z-index: 0;
+  overflow: hidden;
 }
 
 @for $i from 1 through $n {
@@ -28,7 +30,7 @@ $shadow: ();
     top: $h + px;
     left: $v*1%;
     width: 1px;
-    height: 100vh;
+    height: 100%;
     background-image: linear-gradient(to bottom, #fff, rgba(255,255,255,0));
     animation: meteor $d + s linear infinite;
     animation-delay: calc($delay + s * 0.1);

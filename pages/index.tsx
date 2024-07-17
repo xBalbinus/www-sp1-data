@@ -18,9 +18,9 @@ function ExampleBase(props) {
       url="https://wireframes.internet.dev/examples"
     >
       <GutterContainer>
-        <AnimatedBackground />
         <Navigation />
         <SectionFullHeight>
+          <AnimatedBackground/>
           <Content>
             <SectionSelect hideContent />
           </Content>
