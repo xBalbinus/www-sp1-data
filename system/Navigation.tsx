@@ -1,3 +1,5 @@
+'use client';
+
 import styles from '@system/Navigation.module.scss';
 
 import * as React from 'react';
@@ -12,25 +14,19 @@ export default function Navigation() {
     <nav className={styles.root}>
       <section className={styles.left}>
         <a href="/" className={styles.item}>
-          Template
+          Succinct
         </a>
       </section>
       <section className={styles.stretch}>
         <span className={styles.item} onClick={() => Utilities.onHandleThemeChange()}>
           Theme
         </span>
-        <a className={styles.item} href="/examples/features/settings">
-          Settings
+        <a className={styles.item} href="https://forms.gle/aB5Ux5qXx5YYYM7F9">
+          Schedule a Demo
         </a>
-        <a className={styles.item} href="/examples/features/services">
-          Services
+        <a className={styles.item} href="https://docs.succinct.xyz/">
+          Create Your First Program
         </a>
-        <a className={styles.item} href="/examples/features/files-s3">
-          Files
-        </a>
-        <span className={styles.item} onClick={() => showModal({ name: 'AUTHENTICATION' })}>
-          Sign in
-        </span>
       </section>
       <section className={styles.right}>
         <span
@@ -39,7 +35,7 @@ export default function Navigation() {
           onClick={() => showModal({ name: 'NAVIGATION_V2', parentId: 'site-navigation-button' })}
           data-detector-ignore-navigation
         >
-          Navigation
+          Github
         </span>
       </section>
     </nav>

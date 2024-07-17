@@ -1,17 +1,14 @@
 import * as React from 'react';
 
-import DashboardWithSidebarLayout from '@system/layouts/DashboardWithSidebarLayout';
-import DemoBentoLayout from '@demos/DemoBentoLayout';
-import DemoSidebarLayout from '@demos/DemoSidebarLayout';
+import Content from '@system/layouts/Content';
 import GlobalModalManager from '@system/modals/GlobalModalManager';
 import Navigation from '@system/Navigation';
 import Page from '@components/Page';
+import SectionFullHeight from '@system/sections/SectionFullHeight';
 
-import { H1, Lead } from '@system/typography';
+import SectionSelect from '@components/SectionSelect';
 
 function ExampleBase(props) {
-  const sidebarElement = <DemoSidebarLayout />;
-
   return (
     <Page
       title="wireframes.internet.dev ➝ example"
@@ -19,9 +16,11 @@ function ExampleBase(props) {
       url="https://wireframes.internet.dev/examples"
     >
       <Navigation />
-      <DashboardWithSidebarLayout sidebar={sidebarElement}>
-        <DemoBentoLayout hideContent />
-      </DashboardWithSidebarLayout>
+      <SectionFullHeight>
+        <Content>
+          <SectionSelect hideContent />
+        </Content>
+      </SectionFullHeight>
       <GlobalModalManager />
     </Page>
   );

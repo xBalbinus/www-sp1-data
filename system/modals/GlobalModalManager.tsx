@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 
 import ModalAuthentication from '@system/modals/ModalAuthentication';
